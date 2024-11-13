@@ -11,13 +11,13 @@ def new
 end
 
 def create
-  @review = Review.new(review_params)
   @restaurant = Restaurant.find(params[:restaurant_id])
+  @review = Review.new(review_params)
   @review.restaurant = Restaurant.find(params[:restaurant_id]) # revient à faire review.restaurant_id = @restaurant.id
     if @review.save
-      redirect_to restaurant_path(@restaurant)
+      redirect_to @restaurant, notice: 'Review was successfully created.'
     else
-      render :new, status: :unprocessable_entity
+      render 'restaurants/show', status: :unprocessable_entity
     end
 end
 

@@ -13,9 +13,15 @@
       <li class="list-group-item"><%= review.rating %>/5-<%= review.content %></li>
     <% end %>
   </ul>
+
 <br>
-  <%= link_to "Add a review", new_restaurant_review_path(@restaurant), class: "btn btn-primary" %>
-<br>
+
+  <%= simple_form_for [@restaurant, @review] do |f| %>
+    <%= f.input :content, error: "please give feedback" %>
+    <%= f.input :rating, collection: Review::RATINGS %>
+    <%= f.submit class: "btn btn-primary mt-4" %>
+  <% end %>
+
   <br>
   <%= link_to "Back to all restaurants", restaurants_path, class: "btn btn-primary" %>
 </div>
